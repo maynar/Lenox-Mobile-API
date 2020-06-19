@@ -1,0 +1,51 @@
+{
+    "name": "oxycoder/laravel-apidoc-generator",
+    "license": "MIT",
+    "description": "Generate beautiful API documentation from your Laravel application",
+    "keywords": [
+        "API",
+        "Documentation",
+        "Laravel"
+    ],
+    "homepage": "http://github.com/oxycoder/laravel-apidoc-generator",
+    "authors": [
+        {
+            "name": "Tung"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "fzaninotto/faker": "~1.0",
+        "laravel/framework": "~5.4",
+        "ramsey/uuid": "^3.0",
+        "mnapoli/front-yaml": "^1.5",
+        "mnapoli/silly": "~1.0",
+        "illuminate/view": "5.*"
+    },
+    "require-dev": {
+        "orchestra/testbench": "~3.0",
+        "phpunit/phpunit": "~4.0 || ~5.0",
+        "dingo/api": "1.0.*@dev",
+        "mockery/mockery": "^0.9.5"
+    },
+    "autoload": {
+        "files": [
+            "src/Oxycoder/ApiDoc/Documentarian/helpers.php"
+        ],
+        "psr-0": {
+            "Oxycoder\\ApiDoc": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Oxycoder\\ApiDoc\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Oxycoder\\ApiDoc\\ApiDocGeneratorServiceProvider"
+            ]
+       }
+    }
+}

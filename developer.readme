@@ -1,0 +1,38 @@
+1-- Como crear modelo con la migracion --
+php artisan make:model {NombreModelo} -m
+
+2-- Como crear controlador --
+php artisan make:controller  {NombreControler}Controller
+
+3-- Como actualizar la documentacion de la api --
+php artisan api:generate --routePrefix="*"
+
+4--  Como correr migraciones --
+php artisan migrate
+
+5-- Como acceder a la DOC de la api --
+http://localhost:8000/Api/Dodumentation
+
+6-- Como crear un seed --
+php artisan make:seeder {NombreSeed}
+
+7-- Como limpiar base de datos y dejar todo de 0 --
+php artisan migrate:refresh --seed
+
+8-- Como generar un middleware --
+php artisan make:middleware {nombreMiddleware}
+
+9-- Como limpiar cache --
+php artisan route:clear
+php artisan config:clear
+php artisan cache:clear
+
+10--  docker --
+docker-compose up -d -- iniciar docker
+docker exec -it php sh -- acceder a contenedor
+docker exec -it database bash -- acceder a contenedor  mysql
+
+** instalar extenciones
+docker-php-ext-install pdo pdo_mysql
+
+
