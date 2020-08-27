@@ -15,15 +15,9 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
-         /*
-        
-        ESTO DA ERROR NO ACTIVAR 
-        LOS ACCESOS ESTAN DEFINIDOS EN CONFIG/CORS.PHP
-        
-        header('Access-Control-Allow-Origin : *');
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-        header('Access-Control-Allow-Headers : Content-type, X-Auth-Token, Authozation, Origin');*/
-
-        return $next($request);
+        return $next($request)
+      ->header('Access-Control-Allow-Origin', '*')
+      ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+      ->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, X-Token-Auth, Authorization');
     }
 }

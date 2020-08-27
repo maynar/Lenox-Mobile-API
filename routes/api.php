@@ -26,7 +26,7 @@ Route::post('v1/users/auth','UserController@auth')->middleware('cors');
     Route::delete('v1/auth/users/delete/{idUser}','UserController@delete');
 
 
-//Route::group(['middleware' => ['cors']], function () {// Todo lo que esta adentro de este middleware requeire auteticacion
+Route::group(['middleware' => ['cors']], function () {// Todo lo que esta adentro de este middleware requeire auteticacion
 
     Route::post('suma', 'SoapController@show');
 	Route::get('ObtenerCodigoAutenticacion', 'SoapController@ObtenerCodigoAutenticacion');
@@ -66,7 +66,9 @@ Route::post('v1/users/auth','UserController@auth')->middleware('cors');
 	Route::post('UploadFile', 'SoapController@UploadFile');
 	Route::post('VerificarRegistracionDispositivo', 'SoapController@VerificarRegistracionDispositivo');
 	Route::post('ObtenerDispositivo', 'SoapController@ObtenerDispositivo');
+	Route::post('Login', 'SoapController@Login');
+	Route::post('ObtenerDatosPersonales', 'SoapController@ObtenerDatosPersonales');
 
-	
 
-//});
+
+});

@@ -10,7 +10,7 @@ use Log;
 class SoapController extends Controller
 {
 	// Este es el webservice que vamos a consumir
-	public $wsdl = "http://mobile.sistemaslenox.com.ar:48980/MobileFichadasServiceSql.svc?wsdl";
+	public $wsdl = "http://testing.sistemaslenox.com.ar:48980/MobileFichadasServiceSql.svc?wsdl";
 	public $codigo = "5ZBquta2Pk9/h+Eq4B/5gA==";
 
 	public function ObtenerCodigoAutenticacion(){
@@ -454,9 +454,11 @@ class SoapController extends Controller
 		    "codigoAutenticacion" => $r['codigoAutenticacion']
     	];
     	  Log::error("creando");
-    	  Log::error($datos);
+    	 // Log::error($datos);
     	// $namFile=time();
-    	// Storage::disk('local')->put($namFile.'.png', $datos['fileContent']);
+    	if($archivo != ""){
+    	 Storage::disk('local')->put($nombre_foto, $datos['fileContent']);
+    	}
     	// Mail::send('Mail.activate',$datos, function($msj){
      //            $msj->subject('Activación de cuenta');
      //            $msj->to('edgaralexander1008@gmail.com');
@@ -506,7 +508,10 @@ class SoapController extends Controller
 
     	  Log::error($datos);
 
-    	    	    	
+    	    	  
+    	if($archivo != ""){
+    	 Storage::disk('local')->put($nombre_foto, $datos['fileContent']);
+    	}  	
 
     	
     	
@@ -702,6 +707,24 @@ class SoapController extends Controller
 		return json_encode($resultado);
     }
     
+    public function ObtenerDatosPersonales(Request $request){
+    	$datos = json_decode($request->getContent(),true);
+
+		// Creamos el cliente SOAP que hará la solicitud, generalmente están 
+		// protegidos por un usuario y una contraseña
+		
+	    Log::error("ObtenerDatosPersonales");
+
+
+		$cliente = new \SoapClient($this->wsdl);
+		$resultado = $cliente->ObtenerDatosPersonales($datos);
+
+		// Finalmente muestras la respuesta 
+		return json_encode($resultado);
+    }
+    
+    
+    
     public function ObtenerDispositivo(Request $request){
     	$datos = json_decode($request->getContent(),true);
 
@@ -731,6 +754,20 @@ class SoapController extends Controller
 
 		$cliente = new \SoapClient($this->wsdl);
 		$resultado = $cliente->MarcarNotificacionComoLeida($datos);
+
+		// Finalmente muestras la respuesta 
+		return json_encode($resultado);
+    }
+    
+     public function Login(Request $request){
+    	$datos = json_decode($request->getContent(),true);
+  
+		// Creamos el cliente SOAP que hará la solicitud, generalmente están 
+		// protegidos por un usuario y una contraseña
+		Log::error("Login");
+    	Log::error($datos);
+		$cliente = new \SoapClient($this->wsdl, array('cache_wsdl' => WSDL_CACHE_NONE));
+		$resultado = $cliente->Login($datos);
 
 		// Finalmente muestras la respuesta 
 		return json_encode($resultado);

@@ -916,7 +916,6 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
         $this->unregisterCustomComparators();
         $this->cleanupIniSettings();
         $this->cleanupLocaleSettings();
-        \libxml_clear_errors();
 
         // Perform assertion on output.
         if (!isset($e)) {
@@ -1662,15 +1661,21 @@ abstract class TestCase extends Assert implements SelfDescribing, Test
         if ($this->prophet !== null) {
             try {
                 $this->prophet->checkPredictions();
-            } finally {
-                foreach ($this->prophet->getProphecies() as $objectProphecy) {
-                    foreach ($objectProphecy->getMethodProphecies() as $methodProphecies) {
-                        /** @var MethodProphecy[] $methodProphecies */
-                        foreach ($methodProphecies as $methodProphecy) {
-                            $this->numAssertions += \count($methodProphecy->getCheckedPredictions());
-                        }
+            } catch (Throwable $t) {
+                /* Intentionally left empty */
+            }
+
+            foreach ($this->prophet->getProphecies() as $objectProphecy) {
+                foreach ($objectProphecy->getMethodProphecies() as $methodProphecies) {
+                    /** @var MethodProphecy[] $methodProphecies */
+                    foreach ($methodProphecies as $methodProphecy) {
+                        $this->numAssertions += \count($methodProphecy->getCheckedPredictions());
                     }
                 }
+            }
+
+            if (isset($t)) {
+                throw $t;
             }
         }
     }

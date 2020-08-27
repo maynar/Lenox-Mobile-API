@@ -42,10 +42,6 @@ class DiscoverEvents
                 static::classFromFile($listener, $basePath)
             );
 
-            if (! $listener->isInstantiable()) {
-                continue;
-            }
-
             foreach ($listener->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                 if (! Str::is('handle*', $method->name) ||
                     ! isset($method->getParameters()[0])) {
